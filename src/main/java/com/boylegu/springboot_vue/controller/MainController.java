@@ -24,7 +24,6 @@ import com.boylegu.springboot_vue.controller.pagination.PaginationFormatting;
 
 import java.util.*;
 
-
 @RestController
 @RequestMapping("/api/persons")
 public class MainController {
@@ -37,7 +36,6 @@ public class MainController {
 
     @RequestMapping(value = "/sex", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> getSexAll() {
-
         /*
          * @api {GET} /api/persons/sex Get all sexList
          * @apiName GetAllSexList
@@ -146,7 +144,7 @@ public class MainController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Persons updateUser(@PathVariable Long id, @RequestBody Persons data) {
 
         /*
@@ -174,6 +172,11 @@ public class MainController {
         user.setZone(data.getZone());
 
         return personsRepository.save(user);
+    }
+    
+    @RequestMapping("/error")
+    public String error() {
+        return "err"; 
     }
 
 }

@@ -18,8 +18,6 @@ import java.util.Arrays;
 /**
  * Created by gubaoer on 17/7/3.
  */
-
-
 @Aspect
 @Order(5)
 @Component
@@ -34,34 +32,22 @@ public class WebLogAspect {
 
     @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
-
         startTime.set(System.currentTimeMillis());
-
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-
         HttpServletRequest request = attributes.getRequest();
 
         logger.info("URL : " + request.getRequestURL().toString());
-
         logger.info("HTTP_METHOD : " + request.getMethod());
-
         logger.info("IP : " + request.getRemoteAddr());
-
         logger.info("CLASS_METHOD : " + joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName());
-
         logger.info("ARGS : " + Arrays.toString(joinPoint.getArgs()));
-
     }
 
     @AfterReturning(returning = "ret", pointcut = "webLog()")
     public void doAfterReturning(Object ret) throws Throwable {
-
-
         logger.info("RESPONSE : " + ret);
-
         logger.info("SPEND TIME : " + (System.currentTimeMillis() - startTime.get()));
     }
-
 
 }
 
