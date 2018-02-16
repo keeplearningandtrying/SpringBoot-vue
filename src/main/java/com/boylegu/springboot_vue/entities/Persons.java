@@ -1,7 +1,16 @@
 package com.boylegu.springboot_vue.entities;
 
-import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -18,7 +27,10 @@ public class Persons implements Serializable {
        @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss.SSSZ", locale = "zh", timezone = "UTC")
        @Type(type="datetime")
     */
-    private String create_datetime;
+    //private String create_datetime;
+    
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss.S")
+    private Date create_datetime;
 
     @Column(name = "username")
     private String username;
@@ -43,12 +55,12 @@ public class Persons implements Serializable {
         this.id = id;
     }
 
-    public String getCreate_datetime() {
+    public Date getCreate_datetime() {
         return create_datetime;
 
     }
 
-    public void setCreate_datetime(String create_datetime) {
+    public void setCreate_datetime(Date create_datetime) {
         this.create_datetime = create_datetime;
     }
 

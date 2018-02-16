@@ -1,8 +1,10 @@
 package com.boylegu.springboot_vue;
 
+import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Matchers.contains;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
@@ -80,10 +83,13 @@ public class SpringbootVueApplicationTests {
                 .andExpect(status().isOk());
                 //.andExpect(content().string(equalTo("[{\"id\":1,\"username\":\"test\",\"zone\":20}]")));
 
-        request = post("/api/persons/detail/1")
-        		.content("{\"id\":1,\"create_datetime\":\"2018-02-16 00:00:00.0\",\"username\":\"gubaoer\",\"email\":\"gubaoer@hotmail.com\",\"phone\":\"8613000001111\",\"sex\":\"male\",\"zone\":\"HongKou District\"" );
-        //mvc.perform(request)
-        //       .andExpect(content().string(equalTo("success")));
+        request = put("/api/persons/detail/1")
+        		.contentType(MediaType.APPLICATION_JSON)
+        		.content("{\"id\":1,\"create_datetime\":\"2018-02-16 00:00:00.0\",\"username\":\"gubaoer\",\"email\":\"gubaoer@hotmail.com\",\"phone\":\"8613000001111\",\"sex\":\"male\",\"zone\":\"TEST\"}" );
+        		//.content("{\"phone\":\"8613000001111\",\"zone\":\"TEST\"}" );
+        mvc.perform(request)
+               .andExpect(content().string(containsString("TEST")));
+
 
         request = get("/api/persons")
                 .param("sex", "male")

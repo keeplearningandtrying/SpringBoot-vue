@@ -144,7 +144,7 @@ public class MainController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    @RequestMapping(value = "/detail/{id}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
     public Persons updateUser(@PathVariable Long id, @RequestBody Persons data) {
 
         /*
